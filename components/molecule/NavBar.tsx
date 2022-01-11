@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { WHITE } from "../../config/colors";
+import { Button } from "../atom";
 import { UserLogout } from "../compound";
 
 export default function NavBar() {
   return (
     <Wrapper>
       <Image src={"/logo.png"} width={133} height={25} alt="logo" />
+
       <UserLogout />
     </Wrapper>
   );

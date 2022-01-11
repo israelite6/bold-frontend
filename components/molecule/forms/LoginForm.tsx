@@ -1,17 +1,32 @@
 import styled from "@emotion/styled";
 import { TEXT_PRIMARY, WHITE, PRIMARY } from "../../../config/colors";
+import { useLoginForm } from "../../../hooks";
 import { Button } from "../../atom";
 import { TextField } from "../../compound";
 
 export default function LoginForm() {
+  const { fieldsMeta, handleSubmit } = useLoginForm();
   return (
     <FormContainer>
-      <Title>Sign in to Bold.org</Title>
-      <TextField label="Email" placeholder="Email" />
-      <EightPxSpace />
-      <TextField label="Password" type="password" placeholder="Password" />
-      <ThirtyPxSpace />
-      <Button fullWidth>Sign in</Button>
+      <form onSubmit={handleSubmit}>
+        <Title>Sign in to Bold.org</Title>
+        <TextField
+          label="Email"
+          placeholder="Email"
+          {...fieldsMeta.emailAddress}
+        />
+        <EightPxSpace />
+        <TextField
+          label="Password"
+          type="password"
+          placeholder="Password"
+          {...fieldsMeta.userPassword}
+        />
+        <ThirtyPxSpace />
+        <Button fullWidth type="submit">
+          Sign in
+        </Button>
+      </form>
       <ForgetPassword>Forget password?</ForgetPassword>
     </FormContainer>
   );

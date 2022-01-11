@@ -2,8 +2,14 @@ import styled from "@emotion/styled";
 import CalendarIcon from "./../../icons/calendar.svg";
 import MoneyIcon from "./../../icons/money.svg";
 import { Button, Text } from "../atom";
+import { getCurrencyFormat } from "../../utils/helper";
 
-export default function ScholarshipMeta() {
+interface IScholarshipMeta {
+  closeAt: string;
+  amount: number;
+}
+
+export default function ScholarshipMeta({ closeAt, amount }: IScholarshipMeta) {
   return (
     <Wrapper>
       <ItemWrapper>
@@ -12,7 +18,11 @@ export default function ScholarshipMeta() {
           <Text color="grey">Deadline</Text>
 
           <Text color="primary" fontWeight={600} fontSize={"16px"}>
-            Dec 20, 2019
+            {new Date(closeAt).toLocaleDateString("en-US", {
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
+            })}
           </Text>
         </ContentWrapper>
       </ItemWrapper>
@@ -23,7 +33,7 @@ export default function ScholarshipMeta() {
           <Text color="grey">Amount</Text>
 
           <Text color="primary" fontWeight={600} fontSize={"16px"}>
-            $3,000
+            ${getCurrencyFormat(amount)}
           </Text>
         </ContentWrapper>
       </ItemWrapper>

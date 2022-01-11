@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import {
+  DANGER,
   GREY,
   TEXT_GREY,
   TEXT_PRIMARY,
@@ -23,6 +24,8 @@ const Text = styled.div`
       ? TEXT_PRIMARY
       : props.color === "grey"
       ? TEXT_GREY
+      : props.color === "danger"
+      ? DANGER
       : TEXT_SECONDARY};
   font-weight: ${(props: IText) => props.fontWeight || 400};
 `;

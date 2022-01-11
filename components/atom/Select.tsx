@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 
-const Input = styled.input`
+const Select = styled.select`
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   background: #ffffff;
   border: 1px solid #dcdde5;
   box-sizing: border-box;
@@ -9,7 +14,6 @@ const Input = styled.input`
   width: 100%;
   padding: 10px 16px;
   font-size: 14px;
-  font-family: sf-pro-text;
 `;
 
-export default Input;
+export default Select;

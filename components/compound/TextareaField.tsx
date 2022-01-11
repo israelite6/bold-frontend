@@ -1,23 +1,20 @@
 import styled from "@emotion/styled";
-import { Input, Label, Text } from "../atom";
+import { Input, Label, Text, Textarea } from "../atom";
 import { ChangeEventHandler } from "react";
-import { PRIMARY } from "../../config/colors";
 
 interface ITextField {
   label: string;
-  onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement> | undefined;
   placeholder?: string;
-  type?: string;
   error: string | boolean;
   touched: boolean;
-  min?: any;
 }
-export default function TextField({ label, ...props }: ITextField) {
+export default function TextareaField({ label, ...props }: ITextField) {
   return (
     <>
       <Label>{label}</Label>
       <SpaceBetween />
-      <Input {...props} />
+      <Textarea {...props} />
       {props.touched && (
         <Text fontSize="11px" color={"danger"}>
           {props.error}

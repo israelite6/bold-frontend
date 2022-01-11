@@ -1,26 +1,29 @@
 import styled from "@emotion/styled";
 import { GREY, TEXT_PRIMARY, WHITE } from "../../config/colors";
+import { IScholarship } from "../../services/api.interface";
 import { Avatar, Text } from "../atom";
 import { ScholarshipMeta } from "../compound";
 
-export default function ScholarshipItem() {
+export default function ScholarshipItem({
+  title,
+  description,
+  fundedBy,
+  closeAt,
+  amount,
+}: IScholarship) {
   return (
     <Wrapper>
       <FeatureImage />
       <ContentWrapper>
-        <Title>Scholarship for students who lorem ipsum</Title>
+        <Title>{title}</Title>
         <AuthorWrapper>
           <Text color="tertiary">Funded by</Text>
           <StyledAvatar size={"small"} />
-          <Text color="primary">Matthew J. Bradford</Text>
+          <Text color="primary">{fundedBy}</Text>
         </AuthorWrapper>
-        <Text>
-          ESED scholars are exceptional students from developing countries
-          studying in sustainable energy development. Today, the need for
-          globally-oriented practitioners and researchers is ...
-        </Text>
+        <Text>{description}</Text>
       </ContentWrapper>
-      <ScholarshipMeta />
+      <ScholarshipMeta {...{ closeAt, amount }} />
     </Wrapper>
   );
 }
@@ -44,6 +47,7 @@ const FeatureImage = styled.div`
 
 const ContentWrapper = styled.div`
   padding-right: 28px;
+  flex-grow: 1;
 `;
 
 const Title = styled.div`

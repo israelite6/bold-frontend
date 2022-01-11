@@ -1,7 +1,9 @@
-import Button from "./Button";
-import Label from "./Label";
-import Input from "./Input";
 import Avatar from "./Avatar";
+import Button from "./Button";
+import Input from "./Input";
+import Label from "./Label";
+import Select from "./Select";
 import Text from "./Text";
+import Textarea from "./Textarea";
 
-export { Button, Label, Input, Avatar, Text };
+export { Avatar, Button, Input, Label, Select, Text, Textarea };
