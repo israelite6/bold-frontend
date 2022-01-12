@@ -1,23 +1,24 @@
+import { IGetScholarshipResponse } from "./../services/api.interface";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { api } from "../services/api";
+import { IScholarship } from "../services/api.interface";
 
 export default function useGetScholarships() {
   const [page, setPage] = useState<number>(1);
-  const { isLoading, data = { scholarships: [] } } = useQuery(
-    ["scholarships", { page }],
-    api.getScholarships,
-    {
-      onSuccess: (response) => {
-        if (!response) {
-          return;
-        }
+  const {
+    isLoading,
+    data = { scholarships: [], meta: { total: 0, perPage: 1 } },
+  } = useQuery(["scholarships", { page }], api.getScholarships, {
+    keepPreviousData: true,
+  });
 
-        console.log(response);
-      },
-    }
-  );
+  const datas = data as unknown as IGetScholarshipResponse;
 
-  return { isLoading, data };
+  const handleChangePagination = (event) => {
+    setPage(event.target.value);
+  };
+
+  return { isLoading, data: datas, handleChangePagination, page };
 }

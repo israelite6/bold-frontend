@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import Link from "next/link";
 import { TEXT_PRIMARY, WHITE, PRIMARY } from "../../../config/colors";
 import { useLoginForm } from "../../../hooks";
-import { Button } from "../../atom";
+import { Button, Text } from "../../atom";
 import { TextField } from "../../compound";
 
 export default function LoginForm() {
@@ -28,6 +29,14 @@ export default function LoginForm() {
         </Button>
       </form>
       <ForgetPassword>Forget password?</ForgetPassword>
+      <FooterWrapper>
+        Does not have an account? Register{" "}
+        <Link href={"/register"} passHref>
+          <Text color={PRIMARY} cursor="pointer">
+            here
+          </Text>
+        </Link>
+      </FooterWrapper>
     </FormContainer>
   );
 }
@@ -61,4 +70,12 @@ const ForgetPassword = styled.div`
   font-size: 14px;
   padding-top: 20px;
   text-align: center;
+`;
+
+const FooterWrapper = styled.div`
+  padding-top: 16px;
+  font-size: 14px;
+  & span: {
+    cursor: pointer;
+  }
 `;

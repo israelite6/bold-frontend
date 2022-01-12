@@ -21,6 +21,7 @@ export const axiosInstance = () => {
 
 export const httpRequest = async ({ method, data, params, url }: any) => {
   try {
+    console.log({ method, data, params, url });
     const response = await axiosInstance()({ method, data, params, url });
 
     if (method === "POST" || method === "PUT" || method === "DELETE") {

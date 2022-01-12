@@ -1,21 +1,27 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
-import { Button } from "../../components/atom";
-import {
-  NavBar,
-  ScholarshipItem,
-  TitleSection,
-} from "../../components/molecule";
+import { useCallback, useMemo } from "react";
+import { Button, Select } from "../../components/atom";
+import { ScholarshipItem, TitleSection } from "../../components/molecule";
 import MainLayout from "../../components/molecule/layout/MainLayout";
-import { LIGHT_BACKGROUND } from "../../config/colors";
-import { useGetScholarships } from "../../hooks";
+import { CAN_CREATE_SCHOLARSHIP } from "../../config/permissions";
+import { useAcl, useGetScholarships } from "../../hooks";
 import { IScholarship } from "../../services/api.interface";
+import { calculatePaginationButton } from "../../utils/helper";
 
 export default function Scholarships() {
   const router = useRouter();
+  const { handleAcl } = useAcl();
 
-  const { data } = useGetScholarships();
+  const {
+    data: { scholarships, meta },
+    handleChangePagination,
+    page,
+  } = useGetScholarships();
+
+  const paginationButton = useMemo(() => {
+    return calculatePaginationButton(meta.total, meta.perPage);
+  }, [meta]);
 
   const handleGotoCreateScholarship = useCallback(() => {
     router.push("/scholarships/add");
@@ -24,11 +30,14 @@ export default function Scholarships() {
     <MainLayout>
       <TitleSection />
       <FiftySixPxSpace />
-      <ButtonWrapper>
-        <Button onClick={handleGotoCreateScholarship}>Add</Button>
-      </ButtonWrapper>
+      {handleAcl(CAN_CREATE_SCHOLARSHIP) && (
+        <ButtonWrapper>
+          <Button onClick={handleGotoCreateScholarship}>Add</Button>
+        </ButtonWrapper>
+      )}
+
       <ItemsWrapper>
-        {data.scholarships.map(
+        {scholarships.map(
           ({
             id,
             title,
@@ -43,6 +52,15 @@ export default function Scholarships() {
             />
           )
         )}
+
+        <SelectWrapper>
+          <Select onChange={handleChangePagination} value={page}>
+            {paginationButton.map((item: number) => (
+              <option key={item}>{item}</option>
+            ))}
+          </Select>
+        </SelectWrapper>
+        <ClearFloat />
       </ItemsWrapper>
     </MainLayout>
   );
@@ -61,4 +79,13 @@ const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
+`;
+
+const SelectWrapper = styled.div`
+  width: 100px;
+  float: right;
+`;
+
+const ClearFloat = styled.div`
+  clear: both;
 `;

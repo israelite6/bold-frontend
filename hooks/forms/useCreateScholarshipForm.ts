@@ -1,16 +1,18 @@
 import { useFormik } from "formik";
 import { getIsTouched, getIsErrored } from "../../utils/helper";
 import * as Yup from "yup";
+import useCreateScholarship from "../useCreateScholarship";
 
 interface ICreateScholarshipData {
   title: string;
   description: string;
-  funder: string;
+  fundedBy: string;
   amount: string;
   closeAt: string;
 }
 
 export default function useCreateScholarshipForm() {
+  const { mutate } = useCreateScholarship();
   const {
     handleChange: onChange,
     errors,
@@ -20,19 +22,19 @@ export default function useCreateScholarshipForm() {
     initialValues: {
       title: "",
       description: "",
-      funder: "",
+      fundedBy: "",
       amount: "",
       closeAt: "",
     },
     validationSchema: Yup.object().shape({
       title: Yup.string().required("Title is required").max(200),
       description: Yup.string().required("Description is required").max(10000),
-      funder: Yup.string().required("Funder is required").max(200),
+      fundedBy: Yup.string().required("Funder is required").max(200),
       amount: Yup.number().required("Amount is required"),
       closeAt: Yup.string().required("Closing date is required").max(200),
     }),
-    onSubmit: (res) => {
-      console.log(res);
+    onSubmit: (values) => {
+      mutate(values);
     },
   });
 
@@ -49,11 +51,11 @@ export default function useCreateScholarshipForm() {
       error: getIsErrored(errors, "description"),
       name: "description",
     },
-    funder: {
+    fundedBy: {
       onChange,
-      touched: getIsTouched(touched, "funder"),
-      error: getIsErrored(errors, "funder"),
-      name: "funder",
+      touched: getIsTouched(touched, "fundedBy"),
+      error: getIsErrored(errors, "fundedBy"),
+      name: "fundedBy",
     },
     amount: {
       onChange,

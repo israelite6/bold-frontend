@@ -1,15 +1,21 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { WHITE } from "../../config/colors";
+import { useAuth } from "../../hooks";
+import { useAppDispatch } from "../../hooks/redux";
+import { logoutAction } from "../../redux/slice/profileSlice";
+import { eraseCookie } from "../../utils/cookies";
 import { Button } from "../atom";
 import { UserLogout } from "../compound";
 
 export default function NavBar() {
+  const { handleLogout } = useAuth();
+
   return (
     <Wrapper>
       <Image src={"/logo.png"} width={133} height={25} alt="logo" />
-
-      <UserLogout />
+      <UserLogout onClick={handleLogout} />
     </Wrapper>
   );
 }

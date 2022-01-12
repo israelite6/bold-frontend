@@ -4,14 +4,14 @@ import { api } from "../services/api";
 
 export default function useCreateScholarship() {
   const router = useRouter();
-  const { isLoading, mutate } = useMutation(api.register, {
+  const { isLoading, mutate } = useMutation(api.createScholarship, {
     onSuccess: (response) => {
       if (!response) {
         return;
       }
 
       setTimeout(() => {
-        router.push("/login");
+        router.back();
       }, 1000);
     },
   });

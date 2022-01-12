@@ -1,10 +1,15 @@
 import styled from "@emotion/styled";
+import { MouseEventHandler } from "react";
 import { TEXT_SECONDARY } from "../../config/colors";
 import { Avatar } from "../atom";
 
-export default function UserLogout() {
+interface IUserLoggoutComponentProps {
+  onClick: MouseEventHandler<HTMLDivElement> | undefined;
+}
+
+export default function UserLogout(props: IUserLoggoutComponentProps) {
   return (
-    <Wrapper>
+    <Wrapper {...props}>
       <Avatar />
       <LogoutOutText>Logout</LogoutOutText>
     </Wrapper>
@@ -14,6 +19,7 @@ export default function UserLogout() {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 const LogoutOutText = styled.div`
   color: ${TEXT_SECONDARY};

@@ -12,22 +12,25 @@ import {
 interface IText {
   fontWeight?: number;
   fontSize?: string;
+  color?: string;
+  cursor?: string;
 }
 
-const Text = styled.div`
+const Text = styled.span`
   font-size: ${(props: IText) => props.fontSize || "14px"};
   line-height: 19.88px;
-  color: ${(props) =>
-    props.color === "tertiary"
+  color: ${({ color = TEXT_SECONDARY }: IText) =>
+    color === "tertiary"
       ? TEXT_TERTIARY
-      : props.color === "primary"
+      : color === "primary"
       ? TEXT_PRIMARY
-      : props.color === "grey"
+      : color === "grey"
       ? TEXT_GREY
-      : props.color === "danger"
+      : color === "danger"
       ? DANGER
-      : TEXT_SECONDARY};
+      : color};
   font-weight: ${(props: IText) => props.fontWeight || 400};
+  cursor: ${({ cursor }: IText) => cursor};
 `;
 
 export default Text;

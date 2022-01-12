@@ -15,10 +15,6 @@ export default function useGetProfile() {
         return;
       }
       dispatch(setProfileAction(response));
-
-      setTimeout(() => {
-        router.push("/scholarships");
-      }, 1000);
     },
   });
 

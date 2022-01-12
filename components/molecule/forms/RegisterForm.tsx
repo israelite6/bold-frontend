@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
+import Link from "next/link";
 import { TEXT_PRIMARY, WHITE, PRIMARY } from "../../../config/colors";
 import { useRegisterForm } from "../../../hooks";
-import { Button } from "../../atom";
+import { Button, Text } from "../../atom";
 import { SelectField, TextField } from "../../compound";
 
 export default function RegisterForm() {
@@ -45,7 +46,14 @@ export default function RegisterForm() {
           Create Account
         </Button>
       </form>
-      <ForgetPassword>Forget password?</ForgetPassword>
+      <FooterWrapper>
+        Already have an account? Log in{" "}
+        <Link href={"/login"} passHref>
+          <Text color={PRIMARY} cursor="pointer">
+            here
+          </Text>
+        </Link>
+      </FooterWrapper>
     </FormContainer>
   );
 }
@@ -74,9 +82,10 @@ const ThirtyPxSpace = styled.div`
   height: 30px;
 `;
 
-const ForgetPassword = styled.div`
-  color: ${PRIMARY};
+const FooterWrapper = styled.div`
+  padding-top: 16px;
   font-size: 14px;
-  padding-top: 20px;
-  text-align: center;
+  & span: {
+    cursor: pointer;
+  }
 `;

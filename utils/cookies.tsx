@@ -1,3 +1,10 @@
+import {
+  parseCookies,
+  setCookie as setNookiesCookies,
+  destroyCookie,
+} from "nookies";
+import { COOKIE_MAX_AGE } from "../config/constants";
+
 interface SetCookiesParamInterface {
   name: string;
   value: string;
@@ -5,26 +12,17 @@ interface SetCookiesParamInterface {
 }
 
 export const setCookie = ({ name, value, days }: SetCookiesParamInterface) => {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-  console.log(document.cookie);
+  setNookiesCookies(null, name, value, {
+    maxAge: COOKIE_MAX_AGE,
+    path: "/",
+  });
 };
+
 export const getCookie = (name: string): string | null => {
-  let nameEQ = name + "=";
-  let ca = document.cookie.split(";");
-  console.log(ca);
-  for (var i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
+  const cookie = parseCookies() || {};
+  return cookie[name];
 };
+
 export const eraseCookie = (name: string): void => {
-  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  destroyCookie(null, name);
 };

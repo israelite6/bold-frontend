@@ -29,7 +29,7 @@ export default function CreateScholarshipForm() {
           <TextField
             label="Name of the Funder"
             placeholder="funder"
-            {...fieldsMeta.funder}
+            {...fieldsMeta.fundedBy}
           />
           <EightPxSpace />
           <TextField

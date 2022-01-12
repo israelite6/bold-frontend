@@ -5,6 +5,7 @@ import {
   IRegisterProps,
   IRegisterResponse,
   IGetScholarshipResponse,
+  ICreateScholarshipProps,
 } from "./api.interface";
 import { httpRequest, httpUploadRequest } from "../utils/httpRequest";
 
@@ -42,25 +43,31 @@ export const api = {
     return response;
   },
 
-  getProfile: async (): Promise<IGetProfileResponse> => {
+  async getProfile(): Promise<IGetProfileResponse> {
     const response = await httpRequest({
       method: "GET",
       url: GET_PROFILE_URL,
     });
     return response;
   },
-  getScholarships: async (): Promise<IGetScholarshipResponse[]> => {
+  async getScholarships({ queryKey }: any): Promise<IGetScholarshipResponse[]> {
+    const [_key, { page }] = queryKey;
+    console.log({ page });
+
     const response = await httpRequest({
       method: "GET",
       url: GET_SCHOLARSHIPS_URL,
+      params: { page },
     });
 
     console.log(response);
     return response;
   },
-  addBook: async (data: any) => {
-    const response = await httpUploadRequest({
-      url: CREATE_BOOKS_POST_URL,
+  createScholarship: async (data: ICreateScholarshipProps) => {
+    console.log(data);
+    const response = await httpRequest({
+      method: "POST",
+      url: CREATE_SCHOLARSHIPS_POST_URL,
       data,
     });
     return response;

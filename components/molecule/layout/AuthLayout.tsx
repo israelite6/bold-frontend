@@ -1,13 +1,23 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import Image from "next/image";
 import { LIGHT_BACKGROUND } from "../../../config/colors";
+import { useAppSelector } from "../../../hooks/redux";
+import { getIsLoggedInSelector } from "../../../redux/slice/profileSlice";
+import { useRouter } from "next/router";
 
 interface IAuthLayout {
   children: ReactNode;
 }
 
 export default function AuthLayout({ children }: IAuthLayout) {
+  const router = useRouter();
+  const isLoggedIn = useAppSelector(getIsLoggedInSelector);
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/scholarships");
+    }
+  }, [isLoggedIn]);
   return (
     <Wrapper>
       <div>

@@ -39,5 +39,14 @@ export interface IGetScholarshipResponse {
   scholarships: IScholarship[];
   meta: {
     total: number;
+    perPage: number;
   };
+}
+
+export interface ICreateScholarshipProps {
+  title: string;
+  description: string;
+  fundedBy: string;
+  amount: string;
+  closeAt: string;
 }
